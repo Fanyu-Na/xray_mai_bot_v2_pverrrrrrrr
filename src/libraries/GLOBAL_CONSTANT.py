@@ -299,7 +299,13 @@ MONGO_USERNAME = ''
 MONGO_PASSWORD = ''
 MONGO_HOST = '127.0.0.1'
 MONGO_PORT = 21017
+# 身份校验数据库
 MONGO_DATABASE = 'admin'
+
+# 连接数据库
+MONGO_DB = 'xray-mai-bot'
+
+
 
 # 百度翻译Api
 APP_ID = '' # 在百度翻译开放平台申请的App ID
