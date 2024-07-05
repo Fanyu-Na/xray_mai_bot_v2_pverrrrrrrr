@@ -22,19 +22,19 @@ class UserData(object):
         else:
             return {}
         
-    def setUserConfig(self,user_id:str,group_id:int,arg_name:str,value):
-        try:
-            data = {arg_name: value}
-            existing_data = self.userdata_collection.find_one({'_id': user_id})
-            if existing_data:
-                data['create_group'] = existing_data.get("group",group_id)
-                self.userdata_collection.update_one({'_id': user_id}, {'$set': data})
-            else:
-                data['_id'] = user_id
-                data['create_group'] = group_id
-                self.userdata_collection.insert_one(data)
-            return True
-        except:
-            return False
+    # def setUserConfig(self,user_id:str,group_id:int,arg_name:str,value):
+    #     try:
+    #         data = {arg_name: value}
+    #         existing_data = self.userdata_collection.find_one({'_id': user_id})
+    #         if existing_data:
+    #             data['create_group'] = existing_data.get("group",group_id)
+    #             self.userdata_collection.update_one({'_id': user_id}, {'$set': data})
+    #         else:
+    #             data['_id'] = user_id
+    #             data['create_group'] = group_id
+    #             self.userdata_collection.insert_one(data)
+    #         return True
+    #     except:
+    #         return False
 
 userdata = UserData()
