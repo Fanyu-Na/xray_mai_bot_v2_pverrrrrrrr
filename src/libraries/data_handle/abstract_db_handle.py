@@ -1,9 +1,6 @@
-import json
-from pathlib import Path
 import random
 import pymongo
-from src.libraries.GLOBAL_PATH import ABSTRACT_COVER_PATH,DATA_MAIMAI_PATH
-from src.libraries.GLOBAL_CONSTANT import MONGO_HOST,MONGO_DATABASE,MONGO_PASSWORD,MONGO_PORT,MONGO_USERNAME
+from src.libraries.GLOBAL_CONSTANT import MONGO_HOST,MONGO_DATABASE,MONGO_PASSWORD,MONGO_PORT,MONGO_USERNAME,MONGO_DB
 class Abstract(object):
     def __init__(self):
         username = MONGO_USERNAME
@@ -13,7 +10,7 @@ class Abstract(object):
         database_name = MONGO_DATABASE
         connection_string = f'mongodb://{username}:{password}@{host}:{port}/{database_name}'
         self.client = pymongo.MongoClient(connection_string)
-        self.db = self.client['xray-mai-bot']
+        self.db = self.client[MONGO_DB]
         self.abstract_collection = self.db['abstract']
         self.counters_collection = self.db['counters']
 

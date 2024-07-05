@@ -3,7 +3,7 @@ import time
 from datetime import datetime,timedelta
 from src.libraries.maimai.maimaidx_music import total_list
 import re
-from src.libraries.GLOBAL_CONSTANT import MONGO_HOST,MONGO_DATABASE,MONGO_PASSWORD,MONGO_PORT,MONGO_USERNAME
+from src.libraries.GLOBAL_CONSTANT import MONGO_HOST,MONGO_DATABASE,MONGO_PASSWORD,MONGO_PORT,MONGO_USERNAME,MONGO_DB
 
 class Alias(object):
     def __init__(self):
@@ -14,7 +14,7 @@ class Alias(object):
         database_name = MONGO_DATABASE
         connection_string = f'mongodb://{username}:{password}@{host}:{port}/{database_name}'
         self.client = pymongo.MongoClient(connection_string)
-        self.db = self.client['xray-mai-bot']
+        self.db = self.client[MONGO_DB]
         self.alias_collection = self.db['alias']
         self.alias_examine_collection = self.db['alias_examine']
         self.counters_collection = self.db['counters']

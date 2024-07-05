@@ -1,5 +1,5 @@
 import pymongo
-from src.libraries.GLOBAL_CONSTANT import MONGO_HOST,MONGO_DATABASE,MONGO_PASSWORD,MONGO_PORT,MONGO_USERNAME
+from src.libraries.GLOBAL_CONSTANT import MONGO_HOST,MONGO_DATABASE,MONGO_PASSWORD,MONGO_PORT,MONGO_USERNAME,MONGO_DB
 
 
 class UserData(object):
@@ -11,7 +11,7 @@ class UserData(object):
         database_name = MONGO_DATABASE
         connection_string = f'mongodb://{username}:{password}@{host}:{port}/{database_name}'
         self.client = pymongo.MongoClient(connection_string)
-        self.db = self.client['xray-mai-bot']
+        self.db = self.client[MONGO_DB]
         self.userdata_collection = self.db['xray_user_data']
 
     def getUserData(self,user_id:str):
