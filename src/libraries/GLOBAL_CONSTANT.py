@@ -233,7 +233,7 @@ DELETED_MUSIC = [70,341,451,460,455,853,792,146,10146,189,419,687,731,11267,688,
 NOW_VERSION = "舞萌DX 2024"
 
 # 水鱼开发令牌
-DEVELOPER_TOKEN = "FVXMqKTE51fWsR42gSdNrume9IkwGHYn"
+DEVELOPER_TOKEN = ""
 
 
 USER_POKE_MESSAGE = [
@@ -264,35 +264,19 @@ FORTUNE_LIST = [
     ['下埋', '路人小妹妹觉得你好菜的...', '润！！！！！！']
 ]
 
-
-
 # QQ号权限
-# 机修(机修哪去了、)
+# 机修()
 BOT_STAFF = [381268035]
-# BOT管理员(重启BOT、退群、推送OSS、拉群自动同意、更新完成表)
+# BOT管理员(更新完成表)
 BOT_DATA_ADMINISTRATOR = [381268035]
 # BOT数据管理工作人员(开放黑白名单、直接添加别名)
 BOT_DATA_STAFF = [381268035]
 
-# 初号机ID(别名申请通知)
-INITIAL_MACHINE = 3651135753
-
-
 
 # 群号权限
-
-# 自动同意进群申请(审核别名)
-AUTO_ACCEPT_GROUP_REQUEST = [1019756397]
 # 保存图片群权限(添加龙图、抽象画)
 SAVE_IMAGE = [1019756397]
 
-INITIAL_GROUP = 1019756397
-
-# OSS推送配置项
-ACCESSKEY_ID = ''
-ACCESSKEY_SECRET = ''
-END_POINT = ''
-BUCKET_NAME = ''
 
 # Mongo服务器配置
 MONGO_USERNAME = ''
@@ -305,11 +289,5 @@ MONGO_DATABASE = 'admin'
 # 连接数据库
 MONGO_DB = 'xray-mai-bot'
 
-
-
-# 百度翻译Api
-APP_ID = '' # 在百度翻译开放平台申请的App ID
-SECRET_KEY = '' # 在百度翻译开放平台申请的Secret Key
-
-# 高德APIKEY
+# 高德APIKEY(附近mai)
 API_KEY = ""

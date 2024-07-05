@@ -2,9 +2,7 @@ import aiohttp
 import requests
 from src.libraries.maimai.maimaidx_music import total_list
 from src.libraries.execution_time import timing_decorator_async
-
-
-DEVELOPER_TOKEN = "FVXMqKTE51fWsR42gSdNrume9IkwGHYn"
+from src.libraries.GLOBAL_CONSTANT import DEVELOPER_TOKEN
 
 def line_break(line,line_char_count:int,table_width:int):
     ret = ''
@@ -64,18 +62,6 @@ async def get_user_all_records(music_id:str,qq:str = None,username:str = None):
     async with aiohttp.request("POST", "https://www.diving-fish.com/api/maimaidxprober/dev/player/record", json=payload,headers=headers) as resp:
         request_json = await resp.json()
         return resp.status,request_json
-
-# def get_user_all_records(qq:str = None,username:str = None):
-#     payload = get_request_payload(qq=qq,username=username)
-#     if payload == 400:
-#         return 400
-    
-#     headers = {
-#        "developer-token": DEVELOPER_TOKEN
-#     } 
-#     resp = requests.get("https://www.diving-fish.com/api/maimaidxprober/dev/player/records", params=payload,headers=headers)
-#     request_json = resp.json()
-#     return resp.status_code,request_json
 
 def get_request_payload(qq:str = None,username:str = None):
     if qq is None and username is None:

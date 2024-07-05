@@ -3,11 +3,7 @@ import nonebot
 from src.libraries.maimai.maimaidx_music import total_list
 from typing import Dict, List
 import re
-from src.libraries.GLOBAL_CONSTANT import NOW_VERSION
-# config = nonebot.get_driver().config
-# DEVELOPER_TOKEN = config.developer_token
-# config = nonebot.get_driver().config
-DEVELOPER_TOKEN = "FVXMqKTE51fWsR42gSdNrume9IkwGHYn"
+from src.libraries.GLOBAL_CONSTANT import NOW_VERSION,DEVELOPER_TOKEN
 
 scoreRank = 'D C B BB BBB A AA AAA S S+ SS SS+ SSS SSS+'.split(' ')
 combo = ' FC FC+ AP AP+'.split(' ')

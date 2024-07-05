@@ -57,9 +57,6 @@ MAIMAIDX_PATH = "src/static/maimaidx"
 
 COLLECTIBLES_PATH = "src/static/maimaidx/collectibles"
 
-
-
-
 # CHU
 CHUNITHN_DATA_PATH = "src/static/chunithm"
 CHUNITHN_MUSIC_DATA_PATH = "src/static/chunithm/music_data"

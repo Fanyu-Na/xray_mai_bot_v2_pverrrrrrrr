@@ -1,15 +1,11 @@
-from src.libraries.GLOBAL_CONSTANT import BOT_DATA_STAFF
 from src.libraries.GLOBAL_RULE import check_is_bot_data_staff
 from nonebot import on_command
 from nonebot.adapters.onebot.v11 import Message ,MessageEvent,GroupMessageEvent,Bot
 from nonebot.plugin import on_command
 from nonebot.params import CommandArg
 from src.libraries.data_handle.black_list_handle import admin
-from nonebot.log import logger
 import contextlib
 from typing import Dict, Any
-from nonebot.exception import IgnoredException
-from nonebot.message import event_preprocessor
 from src.plugins.xray_plugins_log import c_logger
 
 
