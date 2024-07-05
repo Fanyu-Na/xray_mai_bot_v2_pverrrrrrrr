@@ -36,7 +36,5 @@ class UserData(object):
             return True
         except:
             return False
-    
-
 
 userdata = UserData()

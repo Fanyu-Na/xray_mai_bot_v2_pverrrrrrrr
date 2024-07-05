@@ -43,12 +43,3 @@ def get_abstract_cover_path(music_id,abstract_cover_file_map):
         return img_path
     else:
         return get_nomal_cover_path(int(music_id))
-        # raise Exception("抽象化错误")
-        # url = f"https://download.fanyu.site/abstract/{cover_path}.png"
-        # print(url)
-        # cover = open_image_from_url(url)
-        # if cover == -1:
-        #     return get_nomal_cover_path(int(music_id))
-        # cover.save(img_path)
-        # print('保存新的抽象画资源')
-        # return img_path

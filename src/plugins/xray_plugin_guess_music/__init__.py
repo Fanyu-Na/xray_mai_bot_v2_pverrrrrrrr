@@ -1,16 +1,15 @@
-from nonebot import on_command,on_message,on_shell_command
+from nonebot import on_message,on_shell_command
 from nonebot.adapters.onebot.v11 import GroupMessageEvent, Message,MessageSegment,Bot
-from nonebot.params import CommandArg,ShellCommandArgs
+from nonebot.params import ShellCommandArgs
 from nonebot.rule import Rule
 import random
 from nonebot.typing import T_State
 import asyncio
 import datetime
-import src.libraries.game_handle.guess_cover as Guess_Cover
 from src.libraries.data_handle.alias_db_handle import alias
 from src.libraries.data_handle.abstract_db_handle import abstract
 from src.libraries.maimai.maimaidx_music import obj,total_list
-from typing import Dict, List
+from typing import Dict
 from src.libraries.image_handle.image import *
 from PIL import Image, ImageFilter
 from nonebot.rule import Namespace, ArgumentParser
@@ -138,10 +137,6 @@ async def _(bot: Bot, event: GroupMessageEvent, state: T_State):
             mode = guess_music_dict[event.group_id]['mode']
             file_name = guess_music_dict[event.group_id]['file_name']
             guess_music_dict.pop(event.group_id)
-
-            add_count = 5 if mode else 1
-            Guess_Cover.user_Add_Count(str(event.group_id),str(event.user_id),add_count)
-
             with open(f"{ABSTRACT_COVER_PATH}/{file_name}.png", mode="rb") as f:
                 data = f.read()
             await guess_music_solve.send(Message([
@@ -156,47 +151,4 @@ async def _(bot: Bot, event: GroupMessageEvent, state: T_State):
     else:
         return
     
-search_guess_cover_by_group = on_command('本群排行榜',priority=20,aliases={"本群猜曲绘排行榜",'本区排行榜',"本区猜曲绘排行榜"})
-@search_guess_cover_by_group.handle()
-async def _(bot: Bot, event: GroupMessageEvent):
-    user_data:List[Guess_Cover.Group_User] = Guess_Cover.get_group_top5(str(event.group_id))[:5]
-    msg = '本群猜曲绘排行榜前5为\n'
-    for index,item in enumerate(user_data):
-        user_info = await bot.get_stranger_info(user_id=int(item.User_id))
-        nickname = user_info['nickname']
-        msg += f'{str(index+1)}.{nickname}\t{str(item.guess_count)}次\n'
-    await search_guess_cover_by_group.finish(msg)
 
-
-search_guess_cover_all_group = on_command('全区排行榜',priority=20,aliases={"全区猜曲绘排行榜"})
-@search_guess_cover_all_group.handle()
-async def _(bot: Bot, event: GroupMessageEvent):
-    user_data:List[Guess_Cover.Group_User] = Guess_Cover.get_all_top5()[:11]
-    msg = '全区猜曲绘排行榜前10为\n'
-    for index,item in enumerate(user_data):
-        user_info = await bot.get_stranger_info(user_id=int(item.User_id))
-        print(user_info)
-        nickname = user_info['nickname']
-        msg += f'{str(index+1)}.{nickname}\t{str(item.guess_count_temp)}次\n'
-    await search_guess_cover_by_group.finish(msg)
-
-search_guess_cover_day_list = on_command('本日排行榜',priority=20,aliases={"今日排行榜","今日猜曲绘排行榜"})
-@search_guess_cover_day_list.handle()
-async def _(bot: Bot, event: GroupMessageEvent):
-    user_data:List[Guess_Cover.Guess_data] = Guess_Cover.get_day_top5()[:10]
-    msg = '今日猜曲绘排行榜前10为\n'
-    for index,item in enumerate(user_data):
-        user_info = await bot.get_stranger_info(user_id=int(item.User_id))
-        nickname = user_info['nickname']
-        msg += f'{str(index+1)}.{nickname}\t{str(item.guess_count)}次\n'
-    await search_guess_cover_by_group.finish(msg)
-
-
-
-execute_SQL = on_command('猜曲绘排行榜', rule=check_Admin(),priority=20)
-@execute_SQL.handle()
-async def _(event: GroupMessageEvent, args:Message=CommandArg()):
-    sql = str(args).strip()
-    msg = Guess_Cover.execute_sql(sql)
-    img = image_to_base64(text_to_image(msg))
-    await execute_SQL.send([MessageSegment.image(f"base64://{str(img, encoding='utf-8')}")])

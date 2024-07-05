@@ -56,25 +56,27 @@ async def __(bot: Bot, api: str, data: Dict[str, Any]):
                 "content":msg
             })
 
-@event_preprocessor
-def blacklist_processor(event: MessageEvent):
-    is_block = 0
-    if isinstance(event,GroupMessageEvent):
-        if event.group_id in admin.get_groupid():
-            is_block = 0
-        else:
-            is_block = 1
-    if event.user_id in admin.get_userid():
-        is_block = 1
-    if event.user_id in BOT_DATA_STAFF:
-        is_block = 0
+# 取消注释开启黑白名单
 
-    if is_block:
-        logger.success(f'拒绝开启会话')
-        raise IgnoredException('黑名单会话')
-    else:
-        execut_event_message(event)
-        return
+# @event_preprocessor
+# def blacklist_processor(event: MessageEvent):
+#     is_block = 0
+#     if isinstance(event,GroupMessageEvent):
+#         if event.group_id in admin.get_groupid():
+#             is_block = 0
+#         else:
+#             is_block = 1
+#     if event.user_id in admin.get_userid():
+#         is_block = 1
+#     if event.user_id in BOT_DATA_STAFF:
+#         is_block = 0
+
+#     if is_block:
+#         logger.success(f'拒绝开启会话')
+#         raise IgnoredException('黑名单会话')
+#     else:
+#         execut_event_message(event)
+#         return
 
 @add_group_white.handle()
 async def __(event: MessageEvent, args:Message=CommandArg()):
@@ -95,13 +97,3 @@ async def __(event: MessageEvent, args:Message=CommandArg()):
 async def __(event: MessageEvent, args:Message=CommandArg()):
     userid = int(str(args).strip())
     await add_user_black.send(admin.del_user(userid))
-
-# add_along_black = on_command('关闭龙图模式',rule=check_Along_admin(),priority=3)
-# @add_along_black.handle()
-# async def __(event: GroupMessageEvent):
-#     await add_along_black.send(admin.add_along_black(event.group_id))
-
-# del_along_black = on_command('开启龙图模式',rule=check_Along_admin(),priority=3)
-# @del_along_black.handle()
-# async def __(event: GroupMessageEvent):
-#     await del_along_black.send(admin.del_along_black(event.group_id))

@@ -17,50 +17,11 @@ class Abstract(object):
         self.abstract_collection = self.db['abstract']
         self.counters_collection = self.db['counters']
 
-    def getNextCount(self,counter_id:str):
-        has_counter = self.counters_collection.find_one({"_id":counter_id})
-        if has_counter:
-            ret = self.counters_collection.find_and_modify({"_id":counter_id},{"$inc": {"seq": 1}})
-            return int(ret['seq'])+1
-        else:
-            self.counters_collection.insert_one({"_id":counter_id,"seq":1})
-            return 1
-
     def get_abstract_id_list(self):
         search_data =  self.abstract_collection.find()
         music_list = [int(i['music_id']) for i in search_data]
         return music_list
-
-    def add_abstract(self, music_id, user_id: int, nickname: str,file_name:str):
-        music_abstract_data = self.abstract_collection.find_one({"music_id": music_id})
-        if music_abstract_data:
-            self.abstract_collection.update_one(
-                {
-                    "music_id": music_id
-                },
-                {
-                    "$addToSet":{
-                        "abstract_data":{
-                            "user_id":user_id,
-                            "nickname": nickname,
-                            "file_name":file_name
-                        }
-                    }
-                }
-            )
-        else:
-            self.abstract_collection.insert_one(
-                {
-                    "_id": music_id,
-                    "music_id": music_id,
-                    "abstract_data": [{"user_id": user_id, "nickname": nickname, "file_name": file_name}]
-
-                }
-            )
-        self.make_file_list()
-        return file_name
     
-
     def get_abstract_file_name(self, music_id):
         music_id = str(music_id)
         if int(music_id) in self.get_abstract_id_list():
@@ -95,14 +56,6 @@ class Abstract(object):
         abstract_data = list(self.abstract_collection.find())
         ad = {"abstract": abstract_data, "ams": ams}
         return ad
-
-    def make_file_list(self):
-        folder_path = Path(ABSTRACT_COVER_PATH)
-        files = list(folder_path.glob("*"))
-        files_list = {"files":list(map(lambda x: x.name, files))}
-        
-        with Path(F"{DATA_MAIMAI_PATH}/abstract_files.json").open("w", encoding="utf-8") as f:
-            json.dump(files_list, f, ensure_ascii=False, indent=4)
 
     def get_abstract_file_name_all(self):
         music_abstract_data = self.abstract_collection.find({})

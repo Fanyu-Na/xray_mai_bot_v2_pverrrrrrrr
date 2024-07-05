@@ -67,7 +67,7 @@ async def _(event: GroupMessageEvent):
             music_data = total_list.filter(
                 level=level, diff=['绿黄红紫白'.index(res.groups()[1])], type=tp)
         userConfig = userdata.getUserData(event.get_user_id())
-        is_abstract = userConfig.get("is_abstract",True)
+        is_abstract = userConfig.get("is_abstract",False)
         await random_choice_music.send(music_image(music_data.random(), is_abstract))
     except Exception as e:
         await random_choice_music.finish("Xray出错啦,估计是指令错了,请检查语法！")
@@ -75,7 +75,7 @@ async def _(event: GroupMessageEvent):
 @what_maimai.handle()
 async def _(event: GroupMessageEvent):
     userConfig = userdata.getUserData(event.get_user_id())
-    is_abstract = userConfig.get("is_abstract",True)
+    is_abstract = userConfig.get("is_abstract",False)
     await what_maimai.finish(music_image(total_list.random(), is_abstract))
 
 
@@ -103,7 +103,7 @@ async def _(event: GroupMessageEvent, foo: Namespace = ShellCommandArgs()):
     print(music_id)
     music = total_list.by_id(music_id)
     userConfig = userdata.getUserData(event.get_user_id())
-    is_abstract = userConfig.get("is_abstract",foo.normal)
+    is_abstract = userConfig.get("is_abstract",False)
     if music:
         await search_music_by_id.send(music_image(music, is_abstract))
     else:
@@ -190,7 +190,7 @@ async def _(event: GroupMessageEvent):
     name = re.match(regex, str(event.get_message())).groups()[0].strip()
     result_set = alias.queryMusicByAlias(name)
     userConfig = userdata.getUserData(event.get_user_id())
-    is_abstract = userConfig.get("is_abstract",True)
+    is_abstract = userConfig.get("is_abstract",False)
     if len(result_set) == 1:
         if result_set[0] == "未找到":
             await search_music_by_alias.finish("此歌曲国服已经删除。")
@@ -325,7 +325,7 @@ async def _(event: GroupMessageEvent, message: Message = EventMessage()):
     username = username if username else ""
 
     userConfig = userdata.getUserData(event.get_user_id())
-    is_abstract = userConfig.get("is_abstract",True)
+    is_abstract = userConfig.get("is_abstract",False)
     best50_style = userConfig.get("style_index","1")
 
 
@@ -480,7 +480,7 @@ async def _(event: GroupMessageEvent, args: Message = CommandArg()):
     user_id = str(event.user_id)
     song_id = str(args).strip()
     userConfig = userdata.getUserData(event.get_user_id())
-    is_abstract = userConfig.get("is_abstract",True)
+    is_abstract = userConfig.get("is_abstract",False)
     songinfo = total_list.by_id(song_id)
     if not songinfo:
         songinfo = total_list.by_title(song_id)
@@ -550,7 +550,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
         else:
             if ver in VERSION_DF_MAP.keys():
                 userConfig = userdata.getUserData(event.get_user_id())
-                is_abstract = userConfig.get("is_abstract",True)
+                is_abstract = userConfig.get("is_abstract",False)
                 Img = generate_user_data(ver, groups[1],is_abstract,userConfig,str(event.user_id))
                 if isinstance(Img,str):
                     await new_user_version_plate_completion_status_table.finish(Img)
@@ -570,7 +570,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
     if reresult:
         level = reresult.groups()[0]
         userConfig = userdata.getUserData(event.get_user_id())
-        is_abstract = userConfig.get("is_abstract",True)
+        is_abstract = userConfig.get("is_abstract",False)
         Img = generate_user_level_cst(level, str(event.user_id),is_abstract)
         await user_level_completion_status_table.send([MessageSegment.reply(event.message_id),
                                     MessageSegment.image(f"base64://{str(image_to_base64(Img), encoding='utf-8')}")])
@@ -586,7 +586,7 @@ async def _(event: GroupMessageEvent, args: Message = CommandArg()):
             "现在可获取的段位表有：\n1. 段位认定 舞萌DX2024\n2. 真段位认定 舞萌DX2024\n3. 随机段位认定 舞萌DX2024")
     elif arg in ["1", "2", "3"]:
         userConfig = userdata.getUserData(event.get_user_id())
-        is_abstract = userConfig.get("is_abstract",True)
+        is_abstract = userConfig.get("is_abstract",False)
         if arg in '12':
             if is_abstract:
                 with open(f"{RANK_TABLE_PATH}/SDGBq1.40_course_{arg}.png", mode="rb") as f:
@@ -606,7 +606,7 @@ async def _(bot: Bot, event: GroupMessageEvent):
     if reresult:
         level = reresult.groups()[0]
         userConfig = userdata.getUserData(event.get_user_id())
-        is_abstract = userConfig.get("is_abstract",True)
+        is_abstract = userConfig.get("is_abstract",False)
         tabel_mode = "难度完成表-抽象封面" if is_abstract else "难度完成表-标准封面"
         imgpath = f"{COMPLETION_STATUS_TABLE_PATH}/{tabel_mode}/{level}.png"
         if os.path.exists(imgpath):
