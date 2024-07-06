@@ -1,7 +1,8 @@
 from PIL import Image,ImageFont,ImageDraw
 import os
 from src.libraries.data_handle.abstract_db_handle import abstract
-from src.libraries.GLOBAL_PATH import FORTUNE_PATH,FONT_PATH,ABSTRACT_COVER_PATH,NORMAL_COVER_PATH
+from src.libraries.GLOBAL_PATH import FORTUNE_PATH,FONT_PATH,NORMAL_COVER_PATH
+from src.libraries.maimai.utils import get_abstract_cover_path_by_file_id
 
 def _getCharWidth(o) -> int:
     widths = [
@@ -39,13 +40,12 @@ def _changeColumnWidth(s: str, len: int) -> str:
 
 def makeFortune(year:str,month:str,day:str,week:str,lucky:str,should,noshould,music):
     fortune = Image.new('RGB',(1080,1248),(255,255,255))
-    print(int(music.id))
-    print(int(music.id))
-    print(int(music.id))
-    print(int(music.id))
+
+
     if int(music.id) in abstract.get_abstract_id_list():
         file_name,nickname = abstract.get_abstract_file_name(str(music.id))
-        cover = Image.open(f'{ABSTRACT_COVER_PATH}/{file_name}.png')
+        file_path = get_abstract_cover_path_by_file_id(file_name)
+        cover = Image.open(file_path)
     else:
         if os.path.exists(f'{NORMAL_COVER_PATH}/{(music.id)}.png'):
             cover = Image.open(f'{NORMAL_COVER_PATH}/{(music.id)}.png')

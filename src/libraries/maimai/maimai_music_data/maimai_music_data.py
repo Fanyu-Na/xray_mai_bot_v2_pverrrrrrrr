@@ -6,7 +6,8 @@ from src.libraries.GLOBAL_CONSTANT import VERSION_LOGO_MAP
 from src.libraries.execution_time import timing_decorator
 from .utils import truncate_text,decimalPoints
 from src.libraries.data_handle.abstract_db_handle import abstract
-from src.libraries.GLOBAL_PATH import MAIMAI_MUSIC_DATA,FONT_PATH,ABSTRACT_COVER_PATH
+from src.libraries.GLOBAL_PATH import MAIMAI_MUSIC_DATA,FONT_PATH
+from src.libraries.maimai.utils import get_abstract_cover_path_by_file_id
 class MaiMusicData():
     def __init__(self,music_id:int,is_abstract:bool) -> None:
         self.music_id = music_id 
@@ -25,7 +26,7 @@ class MaiMusicData():
                 file_name,nickname = abstract.get_abstract_file_name(str(self.music_id))
                 filename = file_name
                 self.abstract_artist = nickname
-                musicCoverImg = Image.open(f'{ABSTRACT_COVER_PATH}/{filename}.png').convert('RGBA')
+                musicCoverImg = Image.open(get_abstract_cover_path_by_file_id(file_name)).convert('RGBA')
             else:
                 self.abstract_artist = "抽象画未收录"
                 musicCoverImg = Image.open(get_cover_path(self.music_id,False)).convert('RGBA')

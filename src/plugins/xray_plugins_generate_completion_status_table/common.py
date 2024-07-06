@@ -5,7 +5,6 @@ from nonebot.params import CommandArg,ShellCommandArgs
 from nonebot.log import logger
 from src.libraries.GLOBAL_CONSTANT import VERSION_MAP
 from nonebot.rule import ArgumentParser,Namespace
-from src.libraries.maimai.completion_status_table.version_image import generate_version_image
 from src.libraries.maimai.completion_status_table.new_pcst_base_img import generate_full_version
 from src.libraries.GLOBAL_RULE import check_is_bot_admin
 

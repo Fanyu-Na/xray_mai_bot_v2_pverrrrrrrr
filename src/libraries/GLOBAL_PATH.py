@@ -1,5 +1,5 @@
 CHN_MUSIC_DATA_URL = 'https://download.fanyu.site/maimai/music_data.json'
-
+ABSTRACT_DOWNLOAD_URL = 'https://download.fanyu.site/abstract/'
 # /路径
 RUNTIME_LOG_PATH = "/data/log"
 CUSTOM_LOG_PATH = "/data/clog"

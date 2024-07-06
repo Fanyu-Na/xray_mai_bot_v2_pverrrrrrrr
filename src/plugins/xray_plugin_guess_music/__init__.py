@@ -13,7 +13,7 @@ from typing import Dict
 from src.libraries.image_handle.image import *
 from PIL import Image, ImageFilter
 from nonebot.rule import Namespace, ArgumentParser
-from src.libraries.GLOBAL_PATH import ABSTRACT_COVER_PATH
+from src.libraries.maimai.utils import get_abstract_cover_path_by_file_id
 
 hot_music_ids = []
 music_ids = abstract.get_abstract_id_list()
@@ -34,7 +34,7 @@ def check_Admin():
     return Rule(_checker)
 
 def Get_Cut_Img(file_name,mode) -> None:
-        IMG_data = f'{ABSTRACT_COVER_PATH}/{file_name}.png'
+        IMG_data = get_abstract_cover_path_by_file_id(file_name)
         img = Image.open(IMG_data).convert("RGBA")
         if mode:
             img = img.resize((400,400))
@@ -72,7 +72,7 @@ async def give_answer(bot: Bot, event: GroupMessageEvent, state: T_State):
             return
     music = guess_music_dict[event.group_id]['music']
     file_name = guess_music_dict[event.group_id]['file_name']
-    IMG_data = f'{ABSTRACT_COVER_PATH}/{file_name}.png'
+    IMG_data = get_abstract_cover_path_by_file_id(file_name)
     with open(IMG_data, mode="rb") as f:
         data = f.read()
     asyncio.create_task(bot.send(event, Message([MessageSegment.text("答案是：" + f"{music['id']}. {music['title']}\n"),MessageSegment.image(data)])))
@@ -125,7 +125,7 @@ async def _(bot: Bot, event: GroupMessageEvent, state: T_State):
 
             music = guess_music_dict[event.group_id]['music']
             file_name = guess_music_dict[event.group_id]['file_name']
-            IMG_data = f'{ABSTRACT_COVER_PATH}/{music}.png'
+            IMG_data = get_abstract_cover_path_by_file_id(file_name)
             guess_music_dict.pop(event.group_id)
 
             with open(IMG_data, mode="rb") as f:
@@ -137,7 +137,7 @@ async def _(bot: Bot, event: GroupMessageEvent, state: T_State):
             mode = guess_music_dict[event.group_id]['mode']
             file_name = guess_music_dict[event.group_id]['file_name']
             guess_music_dict.pop(event.group_id)
-            with open(f"{ABSTRACT_COVER_PATH}/{file_name}.png", mode="rb") as f:
+            with open(get_abstract_cover_path_by_file_id(file_name), mode="rb") as f:
                 data = f.read()
             await guess_music_solve.send(Message([
                 MessageSegment.reply(event.message_id),
