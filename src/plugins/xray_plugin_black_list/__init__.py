@@ -58,20 +58,25 @@ async def __(bot: Bot, api: str, data: Dict[str, Any]):
 
 # 取消注释开启黑白名单
 
-@event_preprocessor
-def blacklist_processor(event: MessageEvent):
-    is_block = 0
-    if isinstance(event,GroupMessageEvent):
-        if event.group_id in [725215674]:
-            is_block = 0
-        else:
-            is_block = 1
-   
-    if is_block:
-        raise IgnoredException('黑名单会话')
-    else:
-        # execut_event_message(event)
-        return
+# @event_preprocessor
+# def blacklist_processor(event: MessageEvent):
+#     is_block = 0
+#     if isinstance(event,GroupMessageEvent):
+#         if event.group_id in admin.get_groupid():
+#             is_block = 0
+#         else:
+#             is_block = 1
+#     if event.user_id in admin.get_userid():
+#         is_block = 1
+#     if event.user_id in BOT_DATA_STAFF:
+#         is_block = 0
+
+#     if is_block:
+#         logger.success(f'拒绝开启会话')
+#         raise IgnoredException('黑名单会话')
+#     else:
+#         execut_event_message(event)
+#         return
 
 @add_group_white.handle()
 async def __(event: MessageEvent, args:Message=CommandArg()):
