@@ -12,7 +12,7 @@ class UserData(object):
         connection_string = f'mongodb://{username}:{password}@{host}:{port}/{database_name}'
         self.client = pymongo.MongoClient(connection_string)
         self.db = self.client[MONGO_DB]
-        self.userdata_collection = self.db['xray_user_data']
+        self.userdata_collection = self.db['pub_xray_user_data']
 
     def getUserData(self,user_id:str):
         user_data = self.userdata_collection.find_one({"_id":user_id})
