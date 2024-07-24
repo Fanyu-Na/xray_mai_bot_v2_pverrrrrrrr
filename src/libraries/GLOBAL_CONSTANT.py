@@ -227,7 +227,7 @@ VERSION_EZ_MAP = {
 ALL_VERSION_LIST = ["maimai PLUS","maimai","maimai GreeN","maimai GreeN PLUS","maimai ORANGE","maimai ORANGE PLUS","maimai PiNK","maimai PiNK PLUS","maimai MURASAKi","maimai MURASAKi PLUS","maimai MiLK","MiLK PLUS","maimai FiNALE","maimai でらっくす","maimai でらっくす FESTiVAL","maimai でらっくす UNiVERSE","maimai でらっくす Splash","maimai でらっくす BUDDiES"]
 
 # 删除复活过滤曲
-DELETED_MUSIC = [70,341,451,460,455,853,792,146,10146,189,419,687,731,11267,688,11213,712,11253,510,185,190,524]
+DELETED_MUSIC = [70,341,451,460,455,853,792,146,10146,189,419,687,731,11267,688,11213,712,11253,510,185,190,524,11347,11396,11407,11408,11635]
 
 # 当前游戏版本
 NOW_VERSION = "舞萌DX 2024"
