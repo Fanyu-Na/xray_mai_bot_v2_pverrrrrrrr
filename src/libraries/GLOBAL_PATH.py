@@ -39,6 +39,7 @@ NEW_COMPLETION_STATUS_TABLE_PATH = "src/static/maimaidx/completion_status_table/
 
 # 歌曲详细信息
 MAIMAI_MUSIC_DATA = "src/static/maimaidx/maimai_music_data"
+UTAGE_MAIMAI_MUSIC_DATA = "src/static/maimaidx/utage_song_data"
 FORTUNE_PATH = "src/static/maimaidx/fortune"
 
 

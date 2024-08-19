@@ -1,3 +1,4 @@
+from src.libraries.maimai.maimai_music_data.maimai_utage_music_data import MaiUtageMusicData
 from src.libraries.maimai.maimaidx_music import total_list,Music
 from src.libraries.image_handle.image import image_to_base64
 from nonebot.adapters.onebot.v11 import MessageSegment
@@ -24,8 +25,12 @@ def inner_level_q(ds1, ds2=None):
 
 
 def music_image(music: Music, is_abstract: bool):
-    musicDataImg = MaiMusicData(music.id, is_abstract).draw()
-    return [MessageSegment.image(f"base64://{str(image_to_base64(musicDataImg), encoding='utf-8')}")]
+    if int(music.id) >= 100000:
+        music_data_img = MaiUtageMusicData(int(music.id), is_abstract).draw()
+    else:
+        music_data_img = MaiMusicData(int(music.id), is_abstract).draw()
+    return [
+        MessageSegment.image(f"base64://{str(image_to_base64(music_data_img), encoding='utf-8')}")]
 
 def query_PANDORA_PARADOXXX_score_content(qq):
     payload = {'qq': qq, 'version': ["maimai FiNALE"]}
